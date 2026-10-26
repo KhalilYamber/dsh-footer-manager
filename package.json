@@ -1,6 +1,6 @@
 {
   "name": "dsh-footer-manager",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "private": true,
   "description": "左下角管家：统一接管侧栏底部入口的位置，并能诊断每个入口为何不可见",
   "main": "lib/index.js",
