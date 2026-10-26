@@ -1,0 +1,6 @@
+# dsh-footer-manager bundle patch
+# 把宿主行插进 profile 的插件名册；没有这一行，重启后这个包不会被装配
+# （浏览器半个由 package.json 的 dsh.client 清单驱动，客户端注册表会发 lib/client.js）。
+- insert:
+    - id: footer-manager
+      name: 'dsh-footer-manager'
