@@ -18,5 +18,8 @@
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
+  },
+  "scripts": {
+    "test": "node test/run-all.cjs"
   }
 }
