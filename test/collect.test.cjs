@@ -98,3 +98,25 @@ if (!offBtn) { console.log('FAIL: 状态没同步为「收编：开」'); proces
 offBtn.props.onClick();
 if (styleExists('dsh-footer-manager/collect')) { console.log('FAIL: 关闭后样式还在'); process.exit(1); }
 console.log('PASS: 关闭收编 → 样式移除');
+
+// 收编开启时，行内状态必须说真话：不能说「显示中」
+(function () {
+  // 前面的用例已经把它关掉了，这里重新打开
+  const on = nodes(render()).find(n => n.type === 'button' && (n.kids || []).join('') === '收编：关');
+  if (!on) { console.log('FAIL: 无法重新开启收编'); process.exit(1); }
+  on.props.onClick();
+
+  const el = render();
+  const metas = nodes(el)
+    .filter(n => n.props && n.props.className === 'dfm_itemMeta')
+    .map(n => (n.kids || []).join(''));
+  if (!metas.includes('收编中')) {
+    console.log('FAIL: 收编模式下状态文案不对，实际:', JSON.stringify(metas));
+    process.exit(1);
+  }
+  if (metas.includes('显示中')) {
+    console.log('FAIL: 收编模式下仍有一个入口自称「显示中」');
+    process.exit(1);
+  }
+  console.log('PASS: 收编模式下状态文案为「收编中」，不再谎称显示中');
+})();
